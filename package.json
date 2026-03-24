@@ -1,12 +1,12 @@
 {
-	"name": "as-error",
+	"name": "ServiceErrorPage",
 	"private": true,
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"type": "module",
-	"packageManager": "bun@1.2.0",
+	"packageManager": "bun@1.3.0",
 	"engines": {
 		"node": ">=20",
-		"bun": ">=1.2.0"
+		"bun": ">=1.3.0"
 	},
 	"scripts": {
 		"dev": "vite",
