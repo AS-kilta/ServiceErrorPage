@@ -1,18 +1,25 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import { browser } from '$app/environment';
-  import GlitchLogo from '$lib/GlitchLogo.svelte';
-  import MatrixLogo from '$lib/MatrixLogo.svelte';
+  import GlitchLogo from './lib/GlitchLogo.svelte';
+  import MatrixLogo from './lib/MatrixLogo.svelte';
+  import favicon from './lib/assets/favicon.svg';
+
+  const isBrowser = typeof window !== 'undefined';
   
-  const code = $derived(browser ? $page.url.searchParams.get('code') || 'Unknown' : 'Unknown');
+  const getParam = (name: string) => {
+    if (!isBrowser) return null;
+    return new URLSearchParams(window.location.search).get(name);
+  };
+
+  const code = $derived(getParam('code') || 'Unknown');
   const isMaintenance = $derived(code === '503');
-  const hostname = $derived(browser ? window.location.hostname : 'Loading...');
+  const hostname = $derived(isBrowser ? window.location.hostname : 'Loading...');
+  const title = $derived(isMaintenance ? 'Maintenance' : 'Service Down');
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Space+Mono&display=swap" rel="stylesheet">
-
 <svelte:head>
-  <title>{isMaintenance ? 'Maintenance' : 'Service Down'}</title>
+  <title>{hostname} | {title}</title>
+  <link rel="icon" href={favicon} />
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Space+Mono&display=swap" rel="stylesheet">
 </svelte:head>
 
 <main class:maintenance={isMaintenance}>
@@ -25,9 +32,9 @@
   <h1>{isMaintenance ? 'Maintenance' : 'Service Down'}</h1>
   <p>
     {#if isMaintenance}
-      The service you are trying to reach is under maintenance. The downtime is usually brief and few hours at most.
+      The service you are trying to reach is under maintenance. The downtime is few hours at most but usually less.
     {:else}
-      The service you are trying to reach is down. Sometimes this happens between service deployments so wait a minute and try again later. If this error persists, please notify Tinker Committee.
+      The service you are trying to reach is down. Sometimes this happens between service deployments. Wait a minute and try again later. If this error persists, please notify Tinker Committee.
     {/if}
   </p>
   
