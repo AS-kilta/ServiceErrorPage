@@ -5,12 +5,18 @@
 
   const isBrowser = typeof window !== 'undefined';
   
-  const getParam = (name: string) => {
-    if (!isBrowser) return null;
-    return new URLSearchParams(window.location.search).get(name);
+  const getStatusCode = () => {
+    if (!isBrowser) return 'Unknown';
+    
+    // 1. Try Navigation Timing API (Most reliable in modern browsers)
+    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    if (nav && nav.responseStatus) return nav.responseStatus.toString();
+
+    // 2. Fallback to query param (for local dev/testing)
+    return new URLSearchParams(window.location.search).get('code') || 'Unknown';
   };
 
-  const code = $derived(getParam('code') || 'Unknown');
+  const code = $derived(getStatusCode());
   const isMaintenance = $derived(code === '503');
   const hostname = $derived(isBrowser ? window.location.hostname : 'Loading...');
   const title = $derived(isMaintenance ? 'Maintenance' : 'Service Down');
