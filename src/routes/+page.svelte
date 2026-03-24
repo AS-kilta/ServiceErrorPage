@@ -27,7 +27,7 @@
     {#if isMaintenance}
       The service you are trying to reach is under maintenance. The downtime is usually brief and few hours at most.
     {:else}
-      The service you are trying to reach is down. Sometimes this happens between service deployments so wait a minute and try again. If this error persists, please notify Tinker Committee.
+      The service you are trying to reach is down. Sometimes this happens between service deployments so wait a minute and try again later. If this error persists, please notify Tinker Committee.
     {/if}
   </p>
   
