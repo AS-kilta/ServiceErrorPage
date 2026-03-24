@@ -9,8 +9,7 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: '404.html', // Essential for Traefik routing
-			precompress: true // Enables Brotli/Gzip for efficiency
+			precompress: false
 		}),
 		paths: {
 			relative: false

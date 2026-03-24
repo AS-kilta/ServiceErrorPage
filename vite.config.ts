@@ -1,7 +1,19 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
-import { viteSingleFile } from "vite-plugin-singlefile";
+import { viteSingleFile } from 'vite-plugin-singlefile';
 
 export default defineConfig({
-	plugins: [sveltekit(),  viteSingleFile()]
+	plugins: [
+		sveltekit(),
+		viteSingleFile()
+	],
+	build: {
+		cssCodeSplit: false,
+		assetsInlineLimit: 100000000,
+		rollupOptions: {
+			output: {
+				manualChunks: undefined,
+			},
+		},
+	}
 });
