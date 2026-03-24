@@ -6,9 +6,12 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-# Stage 2: Serve with Nginx
-FROM nginx:alpine
-# Copy only the single bundled HTML file
-COPY --from=builder /app/dist/index.html /usr/share/nginx/html/index.html
+# Stage 2: Serve with Bun
+FROM oven/bun:1.3-alpine
+WORKDIR /app
+# Only copy the built static file and the server script
+COPY --from=builder /app/dist/index.html /app/dist/index.html
+COPY --from=builder /app/server.ts /app/server.ts
+
 EXPOSE 80
-# Nginx's default config will serve index.html for all requests
+CMD ["bun", "server.ts"]
