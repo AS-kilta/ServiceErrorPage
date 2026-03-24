@@ -13,7 +13,7 @@ const config = {
 			precompress: true // Enables Brotli/Gzip for efficiency
 		}),
 		paths: {
-			relative: true
+			relative: false
 		}
 	},
 	vitePlugin: {
