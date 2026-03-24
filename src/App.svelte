@@ -5,18 +5,15 @@
 
   const isBrowser = typeof window !== 'undefined';
   
-  const getStatusCode = () => {
+  // Try to get the code from the injected global, falling back to query param
+  const getCode = () => {
     if (!isBrowser) return 'Unknown';
-    
-    // 1. Try Navigation Timing API (Most reliable in modern browsers)
-    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    if (nav && nav.responseStatus) return nav.responseStatus.toString();
-
-    // 2. Fallback to query param (for local dev/testing)
+    const injected = (window as any).ERROR_CODE;
+    if (injected && injected !== '[[STATUS]]') return injected;
     return new URLSearchParams(window.location.search).get('code') || 'Unknown';
   };
 
-  const code = $derived(getStatusCode());
+  const code = $derived(getCode());
   const isMaintenance = $derived(code === '503');
   const hostname = $derived(isBrowser ? window.location.hostname : 'Loading...');
   const title = $derived(isMaintenance ? 'Maintenance' : 'Service Down');
@@ -73,7 +70,7 @@
     :root {
       --bg-color: #0a0a0a;
       --text-color: #e0e0e0;
-      --accent-color: #bf99d6;
+      --accent-color: #a964d3;
       --box-bg: #1a1a1a;
       --box-border: #46dccb;
     }
