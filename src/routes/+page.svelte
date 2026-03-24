@@ -25,9 +25,9 @@
   <h1>{isMaintenance ? 'Maintenance' : 'Service Down'}</h1>
   <p>
     {#if isMaintenance}
-      The service you are trying to reach is under maintenance. The downtime is usually brief and few hours at most.
+      The service you are trying to reach is under maintenance. The downtime is few hours at most but usually less.
     {:else}
-      The service you are trying to reach is down. Sometimes this happens between service deployments so wait a minute and try again later. If this error persists, please notify Tinker Committee.
+      The service you are trying to reach is down. Sometimes this happens between service deployments. Wait a minute and try again later. If this error persists, please notify Tinker Committee.
     {/if}
   </p>
   
