@@ -12,7 +12,7 @@ const config = {
 			precompress: false
 		}),
 		paths: {
-			relative: false
+			relative: true
 		}
 	},
 	vitePlugin: {
