@@ -1,5 +1,5 @@
 # Stage 1: Build the Svelte app
-FROM oven/bun:1.2-alpine AS builder
+FROM oven/bun:1.3-alpine AS builder
 WORKDIR /app
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
@@ -8,7 +8,7 @@ RUN bun run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
-# Copy the static build (index.html is now self-contained)
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Copy only the single bundled HTML file
+COPY --from=builder /app/dist/index.html /usr/share/nginx/html/index.html
 EXPOSE 80
-# Uses default nginx.conf and entrypoint
+# Nginx's default config will serve index.html for all requests
