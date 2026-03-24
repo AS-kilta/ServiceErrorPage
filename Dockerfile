@@ -9,6 +9,6 @@ RUN bun run build
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
 # Copy the static build (index.html is now self-contained)
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
 # Uses default nginx.conf and entrypoint
