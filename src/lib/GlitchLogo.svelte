@@ -12,8 +12,8 @@
     <svg viewBox="0 0 1080 1080" class="logo-svg base">
       <defs>
         <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color: var(--accent-color); stop-opacity: 1" />
-          <stop offset="100%" style="stop-color: var(--gradient-end, #bf99d6); stop-opacity: 1" />
+          <stop offset="0%" style="stop-color: var(--gradient-end, #bf99d6); stop-opacity: 1" />
+          <stop offset="100%" style="stop-color: var(--accent-color); stop-opacity: 1" />
         </linearGradient>
       </defs>
       <path d={logoPath} fill="url(#logo-grad)" />

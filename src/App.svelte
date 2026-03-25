@@ -5,12 +5,17 @@
 
   const isBrowser = typeof window !== 'undefined';
   
-  // Try to get the code from the injected global, falling back to query param
+  // Prioritize query param for dev/testing, then fallback to injected global
   const getCode = () => {
     if (!isBrowser) return 'Unknown';
+    
+    const urlCode = new URLSearchParams(window.location.search).get('code');
+    if (urlCode) return urlCode;
+
     const injected = (window as any).ERROR_CODE;
     if (injected && injected !== '[[STATUS]]') return injected;
-    return new URLSearchParams(window.location.search).get('code') || 'Unknown';
+    
+    return 'Unknown';
   };
 
   const code = $derived(getCode());
@@ -63,7 +68,7 @@
     --accent-color: #610396;
     --box-bg: #edfffa;
     --box-border: #46dccb;
-    --logo-green: #03d638;
+    --logo-green: #01bc31;
   }
 
   @media (prefers-color-scheme: dark) {
