@@ -6,12 +6,10 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-# Stage 2: Serve with Bun
-FROM oven/bun:1.3-alpine
-WORKDIR /app
-# Only copy the built static file and the server script
-COPY --from=builder /app/dist/index.html /app/dist/index.html
-COPY --from=builder /app/server.ts /app/server.ts
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+# Copy the built static files to Nginx public directory
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
-CMD ["bun", "server.ts"]
+CMD ["nginx", "-g", "daemon off;"]

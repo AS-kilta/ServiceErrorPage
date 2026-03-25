@@ -10,7 +10,8 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "vite build && bun run build:pages",
+		"build:pages": "bun scripts/generate-pages.ts",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"

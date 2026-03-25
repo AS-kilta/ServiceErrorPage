@@ -13,6 +13,15 @@ bun dev
 bun dev -- --open
 ```
 
+Use URL `localhost:5173/?code={error-code}` to test the error page with different status codes. For example, `localhost:5173/?code=503` will show the error page with a 503 (maintenance) status code.
+
+You can view the production version in `localhost:5173/{error-code}.html` by building the docker image and running it with the following command:
+
+```bash
+docker build -t error-page .
+docker run -p 5173:80 error-page
+```
+
 ## Building
 
 To create a production version of your app:
